@@ -21,3 +21,4 @@ link_directories(
   ${CONTEXTSUBSCRIBER_LIBRARY_DIRS}
 )
 
+add_subdirectory(energy)
