@@ -1,0 +1,9 @@
+CMakeCache*
+CMakeFiles*
+*~
+*.o
+cmake_install.cmake
+*.so
+moc_*
+Makefile
+
