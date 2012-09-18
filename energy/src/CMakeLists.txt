@@ -19,3 +19,5 @@ qt4_wrap_cpp(MOC_SRC ${HDRS})
 add_definitions(-DQT_SHARED)
 add_library(energy MODULE ${SRC} ${CSRC} ${MOC_SRC})
 set_target_properties(energy PROPERTIES PREFIX "")
+
+install(TARGETS energy DESTINATION lib/contextkit/subscriber-plugins)
