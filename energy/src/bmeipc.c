@@ -341,10 +341,21 @@ int bme_stat_get(int fd, bme_stat_t *stat)
     return bme_query(fd, &msg, sizeof(msg), stat, sizeof(stat[0]));
 }
 
+static int bme_open_xchg_file()
+{
+    int fd;
+    fd = open(BME_XCHG_FNAME, O_RDONLY | O_CREAT,
+        S_IRUSR | S_IRGRP | S_IROTH);
+    if (fd < 0)
+        return LOG_RC(fd, "Can't open xchg file\n");
+
+    return fd;
+}
+
 int bme_inotify_watch_add(bme_xchg_t h)
 {
     int fd, rc;
-    fd = open(BME_XCHG_FNAME, O_RDONLY | O_CREAT);
+    fd = bme_open_xchg_file();
     if (fd < 0)
         return -1;
     rc = inotify_add_watch(h->h, BME_XCHG_FNAME,
@@ -444,9 +455,9 @@ static inline int bme_state_get
 
     *state_mask = 0;
 
-    fd = open(BME_XCHG_FNAME, O_RDONLY | O_CREAT);
+    fd = bme_open_xchg_file();
     if (fd < 0)
-        return LOG_RC(fd, "Opening xchg file\n");
+        return fd;
 
     rc = read(fd, &events, sizeof(events));
     if (rc < 0) {
