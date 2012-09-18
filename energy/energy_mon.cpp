@@ -7,7 +7,8 @@
 
 #include <iproviderplugin.h>
 
-#include "energy_test.hpp"
+#include "energy_mon.hpp"
+
 
 Test::Test(QString name, prop_fn_t fn)
     : QObject(0)
