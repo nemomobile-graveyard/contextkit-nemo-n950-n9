@@ -6,4 +6,5 @@ cmake_install.cmake
 *.so
 moc_*
 Makefile
+energy/tests/energy_mon
 
