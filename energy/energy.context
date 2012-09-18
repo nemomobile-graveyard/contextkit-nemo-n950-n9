@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<provider xmlns="http://contextkit.freedesktop.org/Provider" plugin="/battery-1" constructionString="battery">
+<provider xmlns="http://contextkit.freedesktop.org/Provider" plugin="/energy" constructionString="battery">
   <key name="Battery.ChargePercentage"></key>
   <key name="Battery.ChargeBars"></key>
   <key name="Battery.OnBattery"></key>
