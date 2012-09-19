@@ -17,7 +17,7 @@ set(HDRS
 qt4_wrap_cpp(MOC_SRC ${HDRS})
 
 add_definitions(-DQT_SHARED)
-add_library(power MODULE ${SRC} ${CSRC} ${MOC_SRC})
+add_library(${PROVIDER} MODULE ${SRC} ${CSRC} ${MOC_SRC})
 set_target_properties(power PROPERTIES PREFIX "")
 
 install(TARGETS power DESTINATION lib/contextkit/subscriber-plugins)

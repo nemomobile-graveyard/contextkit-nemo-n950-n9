@@ -22,6 +22,7 @@
  *
  */
 
+#include <power_properties.hpp>
 #include "power.hpp"
 
 #include <fcntl.h>
@@ -38,14 +39,7 @@
 
 Q_DECLARE_METATYPE(QSet<QString>);
 
-#define ON_BATTERY       "Battery.OnBattery"
-#define LOW_BATTERY      "Battery.LowBattery"
-#define CHARGE_PERCENT   "Battery.ChargePercentage"
-#define CHARGE_BARS      "Battery.ChargeBars"
-#define TIME_UNTIL_LOW   "Battery.TimeUntilLow"
-#define TIME_UNTIL_FULL  "Battery.TimeUntilFull"
-#define IS_CHARGING      "Battery.IsCharging"
-#define NANOSECS_PER_MIN (60 * 1000 * 1000LL)
+static const quint64 nanosecs_per_min = (60 * 1000 * 1000LL);
 
 IProviderPlugin* pluginFactory(const QString& /*constructionString*/)
 {
@@ -150,30 +144,30 @@ bool BatteryPlugin::readBatteryValues()
         return false;
     }
 
-    propertyCache[IS_CHARGING]
+    propertyCache[power_is_charging]
         = (st[bme_stat_charger_state] == bme_charging_state_started
            && st[bme_stat_bat_state] != bme_bat_state_full);
 
-    propertyCache[ON_BATTERY]
+    propertyCache[power_on_battery]
         = (st[bme_stat_charger_state] != bme_charger_state_connected);
-    propertyCache[LOW_BATTERY]
+    propertyCache[power_low_battery]
         = (st[bme_stat_bat_state] == bme_bat_state_low);
 
-    propertyCache[CHARGE_PERCENT] = st[bme_stat_bat_pct_remain];
+    propertyCache[power_charge_percent] = st[bme_stat_bat_pct_remain];
 
     if (st[bme_stat_bat_units_max] != 0) {
         QList<QVariant> list;
         list << QVariant(st[bme_stat_bat_units_now])
              << QVariant(st[bme_stat_bat_units_max]);
-        propertyCache[CHARGE_BARS] = list;
+        propertyCache[power_charge_bars] = list;
     } else {
-        propertyCache[CHARGE_BARS] = QVariant();
+        propertyCache[power_charge_bars] = QVariant();
     }
 
-    propertyCache[TIME_UNTIL_FULL]
-        = (quint64)st[bme_stat_charging_time_left_min] * NANOSECS_PER_MIN;
-    propertyCache[TIME_UNTIL_LOW]
-        = (quint64)st[bme_stat_bat_time_left] * NANOSECS_PER_MIN;
+    propertyCache[power_time_until_full]
+        = (quint64)st[bme_stat_charging_time_left_min] * nanosecs_per_min;
+    propertyCache[power_time_until_low]
+        = (quint64)st[bme_stat_bat_time_left] * nanosecs_per_min;
 
     bme_close(sd);
 
