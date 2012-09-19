@@ -7,7 +7,7 @@
 
 #include <iproviderplugin.h>
 
-#include "energy_mon.hpp"
+#include "power_mon.hpp"
 
 
 Test::Test(QString name, prop_fn_t fn)

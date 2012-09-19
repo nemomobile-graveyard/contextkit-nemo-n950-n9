@@ -8,4 +8,4 @@ API implementation provided by Nokia is closed except publically
 available headers.
 
 This plugin uses own implementation of BME IPC API to retrieve
-contextkit properties related to battery/charging state.
+contextkit properties related to power state.

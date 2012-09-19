@@ -22,7 +22,7 @@
  *
  */
 
-#include "energy.hpp"
+#include "power.hpp"
 
 #include <fcntl.h>
 #include <sys/inotify.h>
